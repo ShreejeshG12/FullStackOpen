@@ -10,6 +10,10 @@ sequenceDiagram
     Note right of browser: 302 is the server asking browser to perform a new HTTP GET request , this response from server contains location telling it where to go.
     Note over browser, server: So, browser now reloads the Notes page after which it sends atleast 3 more HTTP requests
 
+    browser->>server: GET /exampleapp/notes
+    activate server
+    server-->>browser: the note page
+    deactivate server
 
     Note right of browser: 1st request to get the css file
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
