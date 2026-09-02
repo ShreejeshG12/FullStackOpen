@@ -16,6 +16,12 @@ const Result = (props) => {
   )
 }
 
+const Stats = (props) => {
+  return (
+    <p>{props.name} {props.nums}</p>
+  )
+}
+
 const App = () => {
 
   const [reviews, setReviews] = useState({
@@ -64,8 +70,9 @@ const App = () => {
       <Result name={"good"} clicks={reviews.good} />
       <Result name={"neutral"} clicks={reviews.neutral} />
       <Result name={"bad"} clicks={reviews.bad} />
-
-
+      <Stats name={"all"} nums={reviews.good + reviews.bad + reviews.neutral} />
+      <Stats name={"average"} nums={((reviews.good - reviews.bad) / (reviews.neutral + reviews.good + reviews.bad))} />
+      <Stats name={"positive"} nums={`${(reviews.good / (reviews.good + reviews.bad + reviews.neutral)) * 100}%`} />
     </div>
   )
 
