@@ -53,6 +53,11 @@ const App = () => {
         name: 'Redux',
         exercises: 11,
         id: 4
+      },
+      {
+        name: "Test",
+        exercises: 5,
+        id: 5
       }
     ]
   }
