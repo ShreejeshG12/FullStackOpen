@@ -9,8 +9,8 @@ const Header = (props) => {
 const Course = (props) => {
   const { course } = props
   return (
-    course.parts.map((item, i) => {
-      return <p key={i}>{item.name} {item.exercises}</p>
+    course.parts.map((item) => {
+      return <p key={item.id}>{item.name} {item.exercises}</p>
     })
   )
 }
@@ -53,11 +53,6 @@ const App = () => {
         name: 'Redux',
         exercises: 11,
         id: 4
-      },
-      {
-        name: "Test",
-        exercises: 5,
-        id: 5
       }
     ]
   }
