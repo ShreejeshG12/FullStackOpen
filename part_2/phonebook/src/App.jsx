@@ -24,6 +24,17 @@ const App = () => {
 
   const personsToShow = searchName ? persons.filter(person => person.name.toLowerCase().startsWith(searchName.toLowerCase())) : persons
 
+  const deletePerson = (id) => {
+    const personToDelete = persons.find(person => person.id === id)
+    alert(`Delete ${personToDelete.name}`)
+    personService
+      .remove(id)
+      .then(() => {
+        setPersons(persons.filter(person => person.id !== id))
+      })
+  }
+
+
   const addPerson = (event) => {
     event.preventDefault()
     if (!samePerson) {
@@ -74,7 +85,8 @@ const App = () => {
 
       />
       <h2>Numbers</h2>
-      <Persons personsToShow={personsToShow} />
+      <Persons personsToShow={personsToShow}
+        onClick={deletePerson} />
     </div>
   )
 }
