@@ -3,6 +3,7 @@ import axios from 'axios';
 import Filter from "./components/filter";
 import Persons from "./components/persons";
 import Form from "./components/addPersonForm";
+import personService from "./services/persons"
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -10,19 +11,15 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("")
   const [searchName, setSearchName] = useState("")
 
-  //useEffect
+  //useEffect imported from persons.js
 
-  const hook = () => {
-    console.log('effect')
-    axios
-      .get("http://localhost:3001/persons")
+  useEffect(() => {
+    personService
+      .getAll()
       .then(response => {
-        console.log("promise fulfilled")
         setPersons(response.data)
       })
-  }
-
-  useEffect(hook, [])
+  }, [])
 
 
   const personsToShow = searchName ? persons.filter(person => person.name.toLowerCase().startsWith(searchName.toLowerCase())) : persons
@@ -32,17 +29,24 @@ const App = () => {
     if (!samePerson) {
       const personObject = {
         name: newName,
-        id: String(persons.length + 1),
         number: String(newNumber)
       }
-      setPersons(persons.concat(personObject))
-      setNewName("")
-      setNewNumber("")
+
+      //imported from persons.js - NOTE: do not use personObject on setPersons, causes key error on chrome dev tool react
+      personService
+        .create(personObject)
+        .then(response => {
+          setPersons(persons.concat(response.data))
+          setNewName("")
+          setNewNumber("")
+        })
+
     }
     else {
       alert(`${newName} is already added to phonebook`)
       return
     }
+
 
   }
 
